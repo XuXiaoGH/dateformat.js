@@ -1,3 +1,6 @@
+/**
+ * autor: xuxiao , zubaoshan
+ */
 (function(){
 	//定义一些默认参数
 	var _options={
@@ -95,7 +98,89 @@
 			var endStr = this.format(date , fmt);
 			endStr += ' 23:59:59';
 			return endStr;
+		},
+
+		/**
+		 * 两个时间比较大小
+		 * @param d1
+		 * @param d2
+		 */
+		compareDate: function (d1 , d2) {
+			if(d1 && d2){
+				if(d1.getTime() > d2.getTime()){
+					return -1;
+				}else if(d1.getTime() == d2.getTime()){
+					return 0;
+				}else if(d1.getTime() < d2.getTime()){
+					return 1;
+				}
+			}
+		},
+
+		/**
+		 * 得到星期几, 支持中英
+		 * @param date
+		 * @param type
+		 * @returns {string}
+		 */
+		getWeek: function (date , type) {
+			if(date){
+				if(!this.isNotEmpty(type)){
+					type = 0;
+				}
+				var index = date.getDay();
+				var dateStr = '';
+				switch(type){
+					case this.WEEKTYPE.GB_DAYNAME:
+						dateStr = _options.GB.dayNames[index];
+						break;
+					case this.WEEKTYPE.GB_SHORTDAYNAME:
+						dateStr = _options.GB.shortDayNames[index];
+						break;
+					case this.WEEKTYPE.US_DAYNAME:
+						dateStr = _options.US.dayNames[index];
+						break;
+					case this.WEEKTYPE.US_SHORTDAYNAME:
+						dateStr = _options.US.shortDayNames[index];
+						break;
+				}
+				return dateStr;
+			}
+		},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		isNotEmpty: function (str) {
+			if(str != '' && str != null && typeof str != 'undefined'){
+				return true;
+			}
+			return false;
+		},
+
+		//定义内部常量
+		WEEKTYPE: {
+			GB_DAYNAME: 0,
+			GB_SHORTDAYNAME: 1,
+			US_DAYNAME: 2,
+			US_SHORTDAYNAME: 3,
 		}
+
+
+
+
+
 
 
 		
