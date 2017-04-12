@@ -1,26 +1,26 @@
 /**
  * autor: xuxiao , zubaoshan
  */
-(function(){
+(function () {
 	//定义一些默认参数
-	var _options={
+	var _options = {
 		GB: {
-			dayNames        : ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
-			shortDayNames   : ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
-			monthNames      : ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
-			shortMonthNames : ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+			dayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+			shortDayNames: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
+			monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+			shortMonthNames: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
 		},
 		US: {
-			dayNames        : ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-			shortDayNames   : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-			monthNames      : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-			shortMonthNames : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+			dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+			shortDayNames: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+			monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+			shortMonthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 		}
 	}
 
 	//定义一些api
 	var _date_format_api = {
-		secondFunc:function(){
+		secondFunc: function () {
 			alert("secondFunc");
 			return this;//返回当前方法
 		},
@@ -44,12 +44,18 @@
 			if (/(y+)/.test(fmt)) {
 				fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
 			}
-			for (var k in o){
-				if (new RegExp('(' + k + ')').test(fmt)){
+			for (var k in o) {
+				if (new RegExp('(' + k + ')').test(fmt)) {
 					fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (('00' + o[k]).substr(('' + o[k]).length)));
 				}
 			}
 			return fmt;
+		},
+
+		formatToDate: function (dateStr) {
+			if(this.isNotEmpty(dateStr) && this.isValidDate(dateStr)){
+
+			}
 		},
 
 		/**
@@ -58,7 +64,7 @@
 		 */
 		getDateStart: function (date) {
 			var fmt = 'yyyy-MM-dd';
-			var dateStartStr = this.getDateStartStr(date , fmt);
+			var dateStartStr = this.getDateStartStr(date, fmt);
 			var startTime = new Date(Date.parse(dateStartStr));
 			return startTime;
 		},
@@ -67,11 +73,11 @@
 		 * 得到一天的开始 str 类型
 		 * @param date
 		 */
-		getDateStartStr: function (date , fmt) {
-			if(typeof fmt == 'undefined'){
+		getDateStartStr: function (date, fmt) {
+			if (typeof fmt == 'undefined') {
 				fmt = 'yyyy-MM-dd';
 			}
-			var dateStr = this.format(date , fmt);
+			var dateStr = this.format(date, fmt);
 			dateStr += ' 00:00:00';
 			return dateStr;
 		},
@@ -82,7 +88,7 @@
 		 */
 		getDateEnd: function (date) {
 			var fmt = 'yyyy-MM-dd';
-			var dateEndStr = this.getDateEndStr(date , fmt);
+			var dateEndStr = this.getDateEndStr(date, fmt);
 			var endTime = new Date(Date.parse(dateEndStr));
 			return endTime;
 		},
@@ -91,11 +97,11 @@
 		 * 得到一天的结束 str 类型
 		 * @param date
 		 */
-		getDateEndStr: function (date , fmt) {
-			if(typeof fmt == 'undefined'){
+		getDateEndStr: function (date, fmt) {
+			if (typeof fmt == 'undefined') {
 				fmt = 'yyyy-MM-dd';
 			}
-			var endStr = this.format(date , fmt);
+			var endStr = this.format(date, fmt);
 			endStr += ' 23:59:59';
 			return endStr;
 		},
@@ -105,13 +111,13 @@
 		 * @param d1
 		 * @param d2
 		 */
-		compareDate: function (d1 , d2) {
-			if(d1 && d2){
-				if(d1.getTime() > d2.getTime()){
+		compareDate: function (d1, d2) {
+			if (d1 && d2) {
+				if (d1.getTime() > d2.getTime()) {
 					return -1;
-				}else if(d1.getTime() == d2.getTime()){
+				} else if (d1.getTime() == d2.getTime()) {
 					return 0;
-				}else if(d1.getTime() < d2.getTime()){
+				} else if (d1.getTime() < d2.getTime()) {
 					return 1;
 				}
 			}
@@ -123,14 +129,14 @@
 		 * @param type
 		 * @returns {string}
 		 */
-		getWeek: function (date , type) {
-			if(date){
-				if(!this.isNotEmpty(type)){
+		getWeek: function (date, type) {
+			if (date) {
+				if (!this.isNotEmpty(type)) {
 					type = 0;
 				}
 				var index = date.getDay();
 				var dateStr = '';
-				switch(type){
+				switch (type) {
 					case this.WEEKTYPE.GB_DAYNAME:
 						dateStr = _options.GB.dayNames[index];
 						break;
@@ -148,22 +154,59 @@
 			}
 		},
 
+		/**
+		 * 是否为闰年
+		 * @param date
+		 * @returns {boolean}
+		 */
+		isLeapYear: function (date) {
+			if (this.isNotEmpty(date)) {
+				return (0 == date.getYear() % 4 && (( date.getYear() % 100 != 0) || (date.getYear() % 400 == 0)));
+			}
+			return false;
+		},
+
+		/**
+		 * 字符串是否为正确的时间格式，支持 - /
+		 * @param dateStr
+		 * @returns {boolean}
+		 */
+		isValidDate: function (dateStr) {
+			if (this.isNotEmpty(dateStr)) {
+				var sDate = DateStr.replace(/(^\s+|\s+$)/g, ''); //去两边空格;
+				if (sDate == '') return true;
+				//如果格式满足YYYY-(/)MM-(/)DD或YYYY-(/)M-(/)DD或YYYY-(/)M-(/)D或YYYY-(/)MM-(/)D就替换为''
+				//数据库中，合法日期可以是:YYYY-MM/DD(2003-3/21),数据库会自动转换为YYYY-MM-DD格式
+				var s = sDate.replace(/[\d]{ 4,4 }[\-/]{ 1 }[\d]{ 1,2 }[\-/]{ 1 }[\d]{ 1,2 }/g, '');
+				if (s == '') //说明格式满足YYYY-MM-DD或YYYY-M-DD或YYYY-M-D或YYYY-MM-D
+				{
+					var t = new Date(sDate.replace(/\-/g, '/'));
+					var ar = sDate.split(/[-/:]/);
+					if (ar[0] != t.getYear() || ar[1] != t.getMonth() + 1 || ar[2] != t.getDate()) {
+						return false;
+					}
+				} else {
+					return false;
+				}
+				return true;
+			}
+		},
+
+		addDay: function () {
+
+		},
+
+		addMonth: function () {
+
+		},
+
+		addYear: function () {
+
+		},
 
 
-
-
-
-
-
-
-
-
-
-
-
-		
 		isNotEmpty: function (str) {
-			if(str != '' && str != null && typeof str != 'undefined'){
+			if (str != '' && str != null && typeof str != 'undefined') {
 				return true;
 			}
 			return false;
@@ -178,12 +221,6 @@
 		}
 
 
-
-
-
-
-
-		
 	}
 	//这里确定了插件的名称
 	this.DateFormat = _date_format_api;
