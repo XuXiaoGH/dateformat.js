@@ -41,6 +41,9 @@
 				'q+': Math.floor((date.getMonth() + 3) / 3), //季度
 				'S': date.getMilliseconds() //毫秒
 			};
+			if(!this.isNotEmpty(fmt)){
+				fmt = 'yyyy-MM-dd hh:mm:ss';
+			}
 			if (/(y+)/.test(fmt)) {
 				fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
 			}
@@ -53,9 +56,10 @@
 		},
 
 		formatToDate: function (dateStr) {
-			if(this.isNotEmpty(dateStr) && this.isValidDate(dateStr)){
-
+			if(this.isNotEmpty(dateStr) ){
+				return new Date(Date.parse(dateStr.replace(/-/g,   "/")));
 			}
+			return '';
 		},
 
 		/**
@@ -160,9 +164,10 @@
 		 * @returns {boolean}
 		 */
 		isLeapYear: function (date) {
-			if (this.isNotEmpty(date)) {
+			if (date instanceof Date) {
 				return (0 == date.getYear() % 4 && (( date.getYear() % 100 != 0) || (date.getYear() % 400 == 0)));
 			}
+			console.warn('argument format is wrong');
 			return false;
 		},
 
@@ -173,42 +178,104 @@
 		 */
 		isValidDate: function (dateStr) {
 			if (this.isNotEmpty(dateStr)) {
-				var sDate = DateStr.replace(/(^\s+|\s+$)/g, ''); //去两边空格;
-				if (sDate == '') return true;
-				//如果格式满足YYYY-(/)MM-(/)DD或YYYY-(/)M-(/)DD或YYYY-(/)M-(/)D或YYYY-(/)MM-(/)D就替换为''
-				//数据库中，合法日期可以是:YYYY-MM/DD(2003-3/21),数据库会自动转换为YYYY-MM-DD格式
-				var s = sDate.replace(/[\d]{ 4,4 }[\-/]{ 1 }[\d]{ 1,2 }[\-/]{ 1 }[\d]{ 1,2 }/g, '');
-				if (s == '') //说明格式满足YYYY-MM-DD或YYYY-M-DD或YYYY-M-D或YYYY-MM-D
-				{
-					var t = new Date(sDate.replace(/\-/g, '/'));
-					var ar = sDate.split(/[-/:]/);
-					if (ar[0] != t.getYear() || ar[1] != t.getMonth() + 1 || ar[2] != t.getDate()) {
-						return false;
-					}
-				} else {
+				var r= dateStr.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/);
+				if(r==null){
 					return false;
 				}
-				return true;
+				var d=new Date(r[1],r[3]-1,r[4]);
+				var num = (d.getFullYear()==r[1]&&(d.getMonth()+1)==r[3]&&d.getDate()==r[4]);
+				return (num!=0);
 			}
 		},
 
-		addDay: function () {
-
+		/**
+		 * 增加天数
+		 * @param date
+		 * @param dayNum
+		 */
+		addDay: function (date, dayNum) {
+			if(this.isNotEmpty(date) && this.isNotEmpty(dayNum) && date instanceof Date && typeof dayNum == 'number'){
+				date.setDate(date.getDate() + dayNum);
+			}else{
+				console.warn('date or dayNum format wrong');
+			}
+			return date;
 		},
 
-		addMonth: function () {
-
+		addDayStr: function (dateStr, dayNum) {
+			var date ='';
+			if(this.isNotEmpty(dateStr) && this.isNotEmpty(dayNum) && typeof dayNum == 'number'){
+				date = this.formatToDate(dateStr);
+				date.setDate(date.getDate() + dayNum);
+			}else{
+				console.warn('dateStr or dayNum format wrong');
+			}
+			return date;
 		},
 
-		addYear: function () {
+		/**
+		 * 增加月份
+		 * @param date
+		 * @param dayNum
+		 */
+		addMonth: function (date, monthNum) {
+			if(this.isNotEmpty(date) && this.isNotEmpty(monthNum) && date instanceof Date && typeof monthNum == 'number'){
+				date.setMonth(date.getMonth() + monthNum);
+			}else{
+				console.warn('date or monthNum format wrong');
+			}
+			return date;
+		},
 
+		addMonthStr: function (dateStr, monthNum) {
+			var date ='';
+			if(this.isNotEmpty(dateStr) && this.isNotEmpty(monthNum) && typeof monthNum == 'number'){
+				date = this.formatToDate(dateStr);
+				date.setMonth(date.getMonth() + monthNum);
+			}else{
+				console.warn('date or monthNum format wrong');
+			}
+			return date;
+		},
+
+		/**
+		 * 增加年份
+		 * @param date
+		 * @param dayNum
+		 */
+		addYear: function (date, yearNum) {
+			if(this.isNotEmpty(date) && this.isNotEmpty(yearNum) && date instanceof Date && typeof yearNum == 'number'){
+				date.setYear(date.getFullYear() + yearNum);
+			}else{
+				console.warn('date or yearNum format wrong');
+			}
+			return date;
+		},
+
+		addYearStr: function (dateStr, yearNum) {
+			var date = '';
+			if(this.isNotEmpty(dateStr) && this.isNotEmpty(yearNum) && typeof yearNum == 'number'){
+				date = this.formatToDate(dateStr);
+				date.setYear(date.getFullYear() + yearNum);
+			}else{
+				console.warn('date or yearNum format wrong');
+			}
+			return date;
 		},
 
 
+
+
+		/**
+		 * 是否为空
+		 * @param str
+		 * @returns {boolean}
+		 */
 		isNotEmpty: function (str) {
 			if (str != '' && str != null && typeof str != 'undefined') {
 				return true;
 			}
+			console.warn('argument format is wrong');
 			return false;
 		},
 
