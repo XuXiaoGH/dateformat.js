@@ -4,7 +4,7 @@
 (function () {
 	//定义一些默认参数
 	var _options = {
-		GB: {
+		ZH: {
 			dayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
 			shortDayNames: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
 			monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
@@ -20,10 +20,6 @@
 
 	//定义一些api
 	var _date_format_api = {
-		secondFunc: function () {
-			alert("secondFunc");
-			return this;//返回当前方法
-		},
 
 		/**
 		 * 格式化时间
@@ -118,11 +114,11 @@
 		compareDate: function (d1, d2) {
 			if (d1 && d2) {
 				if (d1.getTime() > d2.getTime()) {
-					return -1;
+					return 1;
 				} else if (d1.getTime() == d2.getTime()) {
 					return 0;
 				} else if (d1.getTime() < d2.getTime()) {
-					return 1;
+					return -1;
 				}
 			}
 		},
@@ -141,16 +137,16 @@
 				var index = date.getDay();
 				var dateStr = '';
 				switch (type) {
-					case this.WEEKTYPE.GB_DAYNAME:
-						dateStr = _options.GB.dayNames[index];
+					case this.WEEKTYPE.ZH_DAYNAME:
+						dateStr = _options.ZH.dayNames[index];
 						break;
-					case this.WEEKTYPE.GB_SHORTDAYNAME:
-						dateStr = _options.GB.shortDayNames[index];
+					case this.WEEKTYPE.ZH_SDAYNAME:
+						dateStr = _options.ZH.shortDayNames[index];
 						break;
 					case this.WEEKTYPE.US_DAYNAME:
 						dateStr = _options.US.dayNames[index];
 						break;
-					case this.WEEKTYPE.US_SHORTDAYNAME:
+					case this.WEEKTYPE.US_SDAYNAME:
 						dateStr = _options.US.shortDayNames[index];
 						break;
 				}
@@ -281,10 +277,10 @@
 
 		//定义内部常量
 		WEEKTYPE: {
-			GB_DAYNAME: 0,
-			GB_SHORTDAYNAME: 1,
+			ZH_DAYNAME: 0,
+			ZH_SDAYNAME: 1,
 			US_DAYNAME: 2,
-			US_SHORTDAYNAME: 3,
+			US_SDAYNAME: 3,
 		}
 
 
