@@ -1,0 +1,23 @@
+{
+  "name": "dateformat-util",
+  "version": "1.0.5",
+  "description": "A super-lightweight time conversion tool class",
+  "main": "dateformat-npm.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XuXiaoGH/dateformat.js.git"
+  },
+  "keywords": [
+    "date",
+    "format"
+  ],
+  "author": "heixuxiao@163.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/XuXiaoGH/dateformat.js/issues"
+  },
+  "homepage": "https://github.com/XuXiaoGH/dateformat.js#readme"
+}

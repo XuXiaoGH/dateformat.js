@@ -32,7 +32,7 @@ import dateformat form '...自己的路径';
 最后该项目也上传到npm上，你可以通过
 ```
 //安装
-npm install dateformat  
+npm install dateformat-util  
 ```
 ```
 //使用
