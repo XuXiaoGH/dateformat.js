@@ -23,7 +23,27 @@
 ```js
 <script src="dist/timeago.min.js"></script>
 ```
-目前只支持这种方式，ES6 import模块引入随后就会更新
+
+当然你还可以在通过 import 引入
+```
+import dateformat form '...自己的路径';
+```
+
+最后该项目也上传到npm上，你可以通过
+```
+//安装
+npm install dateformat  
+```
+```
+//使用
+var dateformat = require('dateformat');
+var df = new dateformat();
+df.format(new Date());
+
+```
+
+
+
 
 
 **3. 使用 `dateformat` 类**
