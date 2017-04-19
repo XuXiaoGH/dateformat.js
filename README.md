@@ -1,6 +1,6 @@
 # dateformat.js
 
-> **dateformat.js** 是一个非常简洁、轻量级、不到 `2kb` 的很简洁的 Javascript 库，
+> **dateformat.js** 是一个非常简洁、轻量级、不到 `5kb` 的很简洁的 Javascript 库，
 它是一个时间的处理工具类。
 
  - 支持常用的时间格式化
