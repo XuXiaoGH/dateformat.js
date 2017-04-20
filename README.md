@@ -15,13 +15,13 @@
 # 使用方法
 
 
-**1. 引入 timeago.js**
+**1. 引入 dateformat.js**
 
 
 通过 `script` 标签引入到html文件中，会生成一个全局变量 `DateFormat`.
 
 ```js
-<script src="dist/timeago.min.js"></script>
+<script src="dateformat.js"></script>
 ```
 
 当然你还可以在通过 import 引入
@@ -36,9 +36,8 @@ npm install dateformat-util
 ```
 ```
 //使用
-var dateformat = require('dateformat');
-var df = new dateformat();
-df.format(new Date());
+var dateformat = require('dateformat-util');
+dateformat.format(new Date());
 
 ```
 
